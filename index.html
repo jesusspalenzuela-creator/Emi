@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Una historia para ti... ❤️</title>
+  <!-- Fuente elegante desde Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- Librería para confeti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --primary-color: #ff4b72;
+      --secondary-color: #ff85a1;
+      --bg-gradient: linear-gradient(135deg, #0f0c20, #2b1029, #4a154b);
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Fondo de corazones flotantes */
+    .hearts-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .heart-particle {
+      position: absolute;
+      color: rgba(255, 75, 114, 0.4);
+      animation: floatUp 8s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+      50% { opacity: 0.8; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+
+    /* Tarjetas principales */
+    .container {
+      position: relative;
+      z-index: 10;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    .card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 30px 25px;
+      text-align: center;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      display: none;
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+
+    .card.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    h1, h2 {
+      font-family: 'Great Vibes', cursive;
+      color: var(--secondary-color);
+      margin-bottom: 15px;
+    }
+
+    h1 { font-size: 2.8rem; }
+    h2 { font-size: 2.3rem; }
+
+    p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #e0e0e0;
+      margin-bottom: 20px;
+    }
+
+    /* Botones */
+    .btn {
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      border: none;
+      color: white;
+      padding: 12px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 75, 114, 0.4);
+      outline: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 6px 20px rgba(255, 75, 114, 0.6);
+    }
+
+    /* Estilos Pantalla 2: Flip Cards */
+    .memories-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .memory-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px dashed var(--secondary-color);
+      border-radius: 12px;
+      padding: 15px 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+    }
+
+    .memory-card.revealed {
+      background: rgba(255, 75, 114, 0.2);
+      border-style: solid;
+    }
+
+    /* Estilos Pantalla 3: Razones (Burbujas) */
+    .reasons-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .reason-chip {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .reason-chip.selected {
+      background: var(--primary-color);
+    }
+
+    /* Pantalla Final: Botón Travieso */
+    .actions-final {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+      position: relative;
+      min-height: 50px;
+    }
+
+    #btnNo {
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: none;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fondo animado de corazones -->
+  <div class="hearts-bg" id="heartsBg"></div>
+
+  <div class="container">
+
+    <!-- PASO 1: Inicio -->
+    <div class="card active" id="step1">
+      <h1>Hola, alguien especial...</h1>
+      <p>Creé este rincón digital pensado únicamente en ti. Antes de continuar, ¿me permites compartir contigo unos minutos de recuerdos?</p>
+      <button class="btn" onclick="nextStep(2)">Empezar el viaje ✨</button>
+    </div>
+
+    <!-- PASO 2: Recuerdos -->
+    <div class="card" id="step2">
+      <h2>Nuestros Momentos</h2>
+      <p>Toca cada tarjeta para destapar algunos recuerdos que aún guardo con mucho cariño:</p>
+      
+      <div class="memories-grid">
+        <div class="memory-card" onclick="revealMemory(this, 'Nuestra primera salida juntos ☕')">❓ Tocame</div>
+        <div class="memory-card" onclick="revealMemory(this, 'Aquella risa incontrolable 🍕')">❓ Tocame</div>
+        <div class="memory-card" onclick="revealMemory(this, 'Tus abrazos cuando más los necesitaba 🤍')">❓ Tocame</div>
+        <div class="memory-card" onclick="revealMemory(this, 'Todas las canciones que me recuerdan a ti 🎶')">❓ Tocame</div>
+      </div>
+
+      <button class="btn" id="btnStep2" style="display: none;" onclick="nextStep(3)">Continuar ❤️</button>
+    </div>
+
+    <!-- PASO 3: Razones -->
+    <div class="card" id="step3">
+      <h2>Lo que nunca cambió...</h2>
+      <p>Haz clic en los corazones para descubrir lo que sigo admirando de ti:</p>
+
+      <div class="reasons-container">
+        <div class="reason-chip" onclick="toggleReason(this)">✨ Tu sonrisa</div>
+        <div class="reason-chip" onclick="toggleReason(this)">🧠 Tu inteligencia</div>
+        <div class="reason-chip" onclick="toggleReason(this)">💬 Nuestras pláticas</div>
+        <div class="reason-chip" onclick="toggleReason(this)">🌟 Tu forma de ser</div>
+      </div>
+
+      <button class="btn" onclick="nextStep(4)">Tengo una pregunta... 💭</button>
+    </div>
+
+    <!-- PASO 4: La Pregunta -->
+    <div class="card" id="step4">
+      <h2>Una última pregunta</h2>
+      <p>A pesar del tiempo y la distancia, me he dado cuenta de que lo que construimos fue único. Aprendí del pasado y me encantaría construir algo mucho más bonito juntos.</p>
+      <p><strong>¿Te gustaría intentar nuevamente esta historia y ser mi novia?</strong></p>
+
+      <div class="actions-final">
+        <button class="btn" id="btnYes" onclick="acceptProposal()">¡Sí, acepto! ❤️</button>
+        <button class="btn" id="btnNo" onmouseover="moveNoButton()" onclick="moveNoButton()">No 🙈</button>
+      </div>
+    </div>
+
+    <!-- PASO FINAL: Confirmación -->
+    <div class="card" id="stepFinal">
+      <h1>¡Me haces la persona más feliz! 🎉</h1>
+      <p>Prometo cuidar este nuevo comienzo, valorarte cada día y hacer que valga completamente la pena.</p>
+      <p>✨ Te quiero muchísimo. ✨</p>
+    </div>
+
+  </div>
+
+  <script>
+    // Cambio de pasos
+    function nextStep(stepNumber) {
+      document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
+      document.getElementById(`step${stepNumber}`).classList.add('active');
+    }
+
+    // Lógica para revelar tarjetas en Paso 2
+    let revealedCount = 0;
+    function revealMemory(element, text) {
+      if (!element.classList.contains('revealed')) {
+        element.innerText = text;
+        element.classList.add('revealed');
+        revealedCount++;
+        if (revealedCount >= 2) {
+          document.getElementById('btnStep2').style.display = 'inline-block';
+        }
+      }
+    }
+
+    // Toggle en razones en Paso 3
+    function toggleReason(element) {
+      element.classList.toggle('selected');
+    }
+
+    // Botón "No" que huye
+    function moveNoButton() {
+      const btnNo = document.getElementById('btnNo');
+      const container = document.querySelector('.card.active');
+      
+      const containerRect = container.getBoundingClientRect();
+      const btnRect = btnNo.getBoundingClientRect();
+
+      // Generar coordenadas aleatorias dentro de la tarjeta
+      const maxX = containerRect.width - btnRect.width - 40;
+      const maxY = containerRect.height - btnRect.height - 40;
+
+      const randomX = Math.floor(Math.random() * maxX) - (maxX / 2);
+      const randomY = Math.floor(Math.random() * maxY) - (maxY / 2);
+
+      btnNo.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    }
+
+    // Respuesta positiva + Confeti
+    function acceptProposal() {
+      nextStep('Final');
+      
+      // Lanzar confeti usando la librería
+      confetti({
+        particleCount: 120,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+
+      // Lluvia continua de confeti por 3 segundos
+      const duration = 3 * 1000;
+      const end = Date.now() + duration;
+
+      (function frame() {
+        confetti({
+          particleCount: 3,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 }
+        });
+        confetti({
+          particleCount: 3,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 }
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      })();
+    }
+
+    // Generar fondo de corazones flotantes
+    const heartsBg = document.getElementById('heartsBg');
+    for (let i = 0; i < 20; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('heart-particle');
+      heart.innerHTML = '❤️';
+      heart.style.left = `${Math.random() * 100}%`;
+      heart.style.animationDuration = `${5 + Math.random() * 5}s`;
+      heart.style.animationDelay = `${Math.random() * 5}s`;
+      heart.style.fontSize = `${12 + Math.random() * 20}px`;
+      heartsBg.appendChild(heart);
+    }
+  </script>
+</body>
+</html>
