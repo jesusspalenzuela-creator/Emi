@@ -236,7 +236,7 @@
 
     <!-- PASO 1: Inicio -->
     <div class="card active" id="step1">
-      <h1>Hola Emi de mi vida</h1>
+      <h1>Hola, Emi de mi vida</h1>
       <p>Creé este rincón digital pensado únicamente para ti. Preparé un pequeño recorrido de recuerdos antes de decirte lo que llevo en el corazón. ¿Me acompañas?</p>
       <button class="btn" onclick="nextStep(2)">Empezar el viaje ✨</button>
     </div>
@@ -251,7 +251,7 @@
         <!-- 1: Primera vez que nos vimos -->
         <div class="memory-card" onclick="revealMemory(this, 1)">
           <div class="title"><span>1. La primera vez que nos vimos 👁️✨</span> <span>🔒</span></div>
-          <div class="text">Aún recuerdo perfectamente lo nerviosa que estarías y cómo te brillaban los ojos. Tu sonrisa hermosa jamás la voy a olvidar, quedó grabada en mí desde ese primer segundo.</div>
+          <div class="text">Aún recuerdo perfectamente lo nerviosa que estabas y cómo te brillaban los ojos. Tu sonrisa hermosa jamás la voy a olvidar, quedó grabada en mí desde ese primer segundo.</div>
         </div>
 
         <!-- 2: Primer beso el mismo día -->
@@ -263,12 +263,12 @@
         <!-- 3: Primer te quiero -->
         <div class="memory-card" onclick="revealMemory(this, 3)">
           <div class="title"><span>3. El primer "Te quiero" 💬❤️</span> <span>🔒</span></div>
-          <div class="text">Jamás olvidaré la primera vez que te dije "te quiero" y me respondiste con un "yo también". Sentí que todo encajaba perfectamente.</div>
+          <div class="text">Jamás olvidaré la primera vez que te dije "te quiero ❤️" y me respondiste con un "yo también ❤️". Sentí que todo encajaba perfectamente.</div>
         </div>
 
         <!-- 4: Visitas a su casa y cuidados -->
         <div class="memory-card" onclick="revealMemory(this, 4)">
-          <div class="title"><span>4. Cada momento juntos 🏠🫂</span> <span>🔒</span></div>
+          <div class="title"><span>4. Cada momento juntos 🏠🥰</span> <span>🔒</span></div>
           <div class="text">Cada vez que iba a tu casa y nos comíamos a besos, cómo nos atendíamos y cuidábamos... incluso cuando estuve enfermo, tu atención y cariño estuvieron ahí.</div>
         </div>
       </div>
@@ -302,7 +302,6 @@
 
       <div class="actions-final">
         <button class="btn" onclick="response('yes')">¡Sí, quiero comenzar de nuevo! ❤️</button>
-        <button class="btn btn-secondary" onclick="response('meet')">Mejor ven y nos vemos ☕</button>
         <button class="btn btn-secondary" onclick="response('no')">No por ahora 💔</button>
       </div>
     </div>
@@ -314,17 +313,9 @@
       <p>✨ Te amo, Emi. Nos espera un comienzo hermoso. ✨</p>
     </div>
 
-    <!-- RESPUESTA: REUNIÓN -->
-    <div class="card" id="stepFinalMeet">
-      <h2>Es una gran idea ☕✨</h2>
-      <p>Nada se compara a hablar mirándonos a los ojos. Vamos a vernos, conversar tranquilos y sentir esa bonita conexión de siempre.</p>
-      <p>Dime cuándo nos vemos, estaré esperando por ti. ❤️</p>
-    </div>
-
     <!-- RESPUESTA: NO -->
     <div class="card" id="stepFinalNo">
-      <h2>Respeto mucho tu decisión 🤍</h2>
-      <p>Gracias por haberte tomado el tiempo de recorrer estos recuerdos conmigo. Siempre voy a desear tu felicidad y a guardar con mucho cariño todo lo bonito que vivimos.</p>
+      <h2>Fea</h2>
     </div>
 
   </div>
@@ -358,7 +349,7 @@
       1: "✨ Tu sonrisa única que me alegra el día",
       2: "🧠 Tu forma de ser y tu manera de pensar",
       3: "💬 Nuestras conversaciones tan especiales",
-      4: "🫂 La paz que me da estar a tu lado",
+      4: "🥰 La paz que me da estar a tu lado",
       5: "💕 Y muchísimo más que solo tú me haces sentir..."
     };
 
@@ -386,9 +377,6 @@
         document.getElementById('stepFinalYes').classList.add('active');
         // Confeti animado
         confetti({ particleCount: 130, spread: 80, origin: { y: 0.6 } });
-      } else if (type === 'meet') {
-        document.getElementById('stepFinalMeet').classList.add('active');
-        confetti({ particleCount: 50, spread: 50, origin: { y: 0.6 } });
       } else if (type === 'no') {
         document.getElementById('stepFinalNo').classList.add('active');
       }
