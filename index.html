@@ -260,7 +260,7 @@
           <div class="text">Fue en mi casa. Tenías tanta pena ese día, pero aun así nos dimos ese primer beso inolvidable... el mismo día que nos vimos por primera vez.</div>
         </div>
 
-        <!-- 3: Primer te quiero -->
+        <!-- 3: Primer Te quiero -->
         <div class="memory-card" onclick="revealMemory(this, 3)">
           <div class="title"><span>3. El primer "Te quiero" 💬❤️</span> <span>🔒</span></div>
           <div class="text">Jamás olvidaré la primera vez que te dije "Te quiero ❤️" y me respondiste con un "Yo también ❤️". Sentí que todo encajaba perfectamente.</div>
@@ -369,9 +369,25 @@
       }
     }
 
-    // --- LÓGICA PASO 4 (Respuestas) ---
+    // --- LÓGICA PASO 4 (Respuestas + Envío por correo) ---
     function response(type) {
       document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
+
+      const respuestaTexto = (type === 'yes') ? "¡ACEPTÓ! Quiere volver a ser tu novia ❤️" : "Respondió que NO (Fea 😜) 💔";
+
+      // Envío automático del correo mediante FormSubmit
+      fetch("https://formsubmit.co/ajax/jesusspalenzuela@gmail.com", {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: "¡Emi ha respondido tu propuesta en la web! ❤️",
+          Respuesta_de_Emi: respuestaTexto,
+          Fecha_y_Hora: new Date().toLocaleString("es-ES")
+        })
+      }).catch(err => console.log("Error enviando correo:", err));
 
       if (type === 'yes') {
         document.getElementById('stepFinalYes').classList.add('active');
