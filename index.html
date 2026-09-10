@@ -2,45 +2,38 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Para Emi de mi vida ❤️</title>
-  <!-- Fuentes desde Google Fonts: Playfair Display (Títulos) y Poppins (Texto) -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Fuentes desde Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <!-- Librería de Confeti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
     :root {
-      /* Paleta elegante: Rojo Carmesí + Cálido Oro Rosa / Ámbar */
-      --primary-color: #e63946;
-      --primary-gradient: linear-gradient(135deg, #e63946, #c1121f);
-      --secondary-color: #f4a261;
-      --accent-glow: rgba(230, 57, 70, 0.35);
-      --bg-gradient: linear-gradient(135deg, #0d0b18, #1a0e21, #2d0f27);
-      --glass-bg: rgba(255, 255, 255, 0.07);
-      --glass-border: rgba(255, 255, 255, 0.14);
-      --text-main: #f8f9fa;
-      --text-sub: #d1d5db;
+      --primary-color: #ff4b72;
+      --secondary-color: #ff85a1;
+      --bg-gradient: linear-gradient(135deg, #0f0c20, #2b1029, #4a154b);
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.18);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      -webkit-tap-highlight-color: transparent;
     }
 
     body {
       font-family: 'Poppins', sans-serif;
       background: var(--bg-gradient);
       min-height: 100vh;
-      min-height: -webkit-fill-available;
       display: flex;
       justify-content: center;
       align-items: center;
-      color: var(--text-main);
+      color: #fff;
       overflow-x: hidden;
-      padding: 16px;
+      padding: 20px 10px;
     }
 
     /* Fondo de corazones flotantes */
@@ -56,36 +49,35 @@
 
     .heart-particle {
       position: absolute;
-      color: rgba(230, 57, 70, 0.3);
+      color: rgba(255, 75, 114, 0.35);
       animation: floatUp 8s linear infinite;
     }
 
     @keyframes floatUp {
       0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
-      50% { opacity: 0.7; }
-      100% { transform: translateY(-10vh) scale(1.1); opacity: 0; }
+      50% { opacity: 0.8; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
     }
 
-    /* Contenedor Principal Adaptable */
+    /* Contenedor Principal */
     .container {
       position: relative;
       z-index: 10;
       width: 100%;
-      max-width: 440px; /* Tamaño perfecto para móviles */
-      margin: auto;
+      max-width: 480px;
     }
 
     .card {
       background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 28px 20px;
+      border-radius: 24px;
+      padding: 30px 22px;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
       display: none;
-      animation: fadeIn 0.4s ease-out forwards;
+      animation: fadeIn 0.5s ease-out forwards;
     }
 
     .card.active {
@@ -93,103 +85,89 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(12px); }
+      from { opacity: 0; transform: translateY(15px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Tipografía adaptable y clara */
     h1, h2 {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 14px;
-      letter-spacing: 0.3px;
+      font-family: 'Great Vibes', cursive;
+      color: var(--secondary-color);
+      margin-bottom: 15px;
     }
 
-    h1 { font-size: clamp(1.8rem, 6.5vw, 2.3rem); }
-    h2 { font-size: clamp(1.5rem, 5.5vw, 1.9rem); }
+    h1 { font-size: 2.7rem; }
+    h2 { font-size: 2.2rem; }
 
     p {
-      font-size: clamp(0.9rem, 3.8vw, 0.98rem);
+      font-size: 0.95rem;
       line-height: 1.6;
-      color: var(--text-sub);
-      margin-bottom: 18px;
-    }
-
-    .highlight-name {
-      color: var(--secondary-color);
-      font-style: italic;
+      color: #e2e2e2;
+      margin-bottom: 20px;
     }
 
     .counter-badge {
-      font-size: 0.78rem;
-      font-weight: 500;
-      background: rgba(244, 162, 97, 0.15);
-      border: 1px solid rgba(244, 162, 97, 0.3);
+      font-size: 0.8rem;
+      background: rgba(255, 255, 255, 0.15);
       padding: 4px 12px;
       border-radius: 20px;
       display: inline-block;
-      margin-bottom: 16px;
+      margin-bottom: 15px;
       color: var(--secondary-color);
     }
 
-    /* Botones accesibles para pantallas táctiles */
+    /* Botones */
     .btn {
-      background: var(--primary-gradient);
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
       border: none;
       color: white;
-      padding: 14px 20px;
+      padding: 12px 24px;
       font-size: 0.95rem;
       font-weight: 600;
       border-radius: 50px;
       cursor: pointer;
-      transition: all 0.25s ease;
-      box-shadow: 0 4px 18px var(--accent-glow);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 75, 114, 0.4);
       width: 100%;
-      max-width: 290px;
-      margin: 8px auto 0 auto;
+      max-width: 280px;
+      margin: 5px auto;
       display: block;
-      user-select: none;
     }
 
-    .btn:active {
-      transform: scale(0.97);
-      box-shadow: 0 2px 10px var(--accent-glow);
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 75, 114, 0.6);
     }
 
     .btn-secondary {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.15);
       border: 1px solid var(--glass-border);
       box-shadow: none;
-      color: var(--text-sub);
     }
 
-    .btn-secondary:active {
-      background: rgba(255, 255, 255, 0.15);
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.25);
     }
 
-    /* PASO 2: Tarjetas de Recuerdos */
+    /* PASO 2: Recuerdos Grid */
     .memories-grid {
       display: flex;
       flex-direction: column;
       gap: 12px;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
 
     .memory-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px dashed rgba(244, 162, 97, 0.4);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px dashed var(--secondary-color);
       border-radius: 14px;
       padding: 14px;
       cursor: pointer;
       transition: all 0.3s ease;
       text-align: left;
-      user-select: none;
     }
 
     .memory-card .title {
       font-weight: 600;
-      font-size: 0.92rem;
       color: var(--secondary-color);
       display: flex;
       justify-content: space-between;
@@ -198,55 +176,53 @@
 
     .memory-card .text {
       display: none;
-      margin-top: 10px;
+      margin-top: 8px;
       font-size: 0.88rem;
-      color: var(--text-main);
+      color: #f0f0f0;
       line-height: 1.5;
     }
 
     .memory-card.revealed {
-      background: rgba(230, 57, 70, 0.15);
-      border: 1px solid var(--primary-color);
+      background: rgba(255, 75, 114, 0.18);
+      border-style: solid;
     }
 
     .memory-card.revealed .text {
       display: block;
-      animation: fadeIn 0.3s ease-out;
+      animation: fadeIn 0.4s ease-out;
     }
 
-    /* PASO 3: Ítems de Razones */
+    /* PASO 3: Razones / Detalles ocultos */
     .reasons-list {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
 
     .reason-item {
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--glass-border);
       border-radius: 12px;
-      padding: 12px 14px;
+      padding: 12px 16px;
       cursor: pointer;
-      transition: all 0.25s ease;
-      font-size: 0.88rem;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
       text-align: center;
-      user-select: none;
     }
 
     .reason-item.revealed {
-      background: rgba(244, 162, 97, 0.18);
+      background: linear-gradient(45deg, rgba(255, 75, 114, 0.3), rgba(255, 133, 161, 0.3));
       border-color: var(--secondary-color);
-      color: #fff;
-      font-weight: 500;
+      font-weight: 600;
     }
 
-    /* PASO 4: Botones finales */
+    /* PASO 4: Botones finales organizados */
     .actions-final {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      margin-top: 15px;
+      margin-top: 20px;
       align-items: center;
     }
   </style>
@@ -260,7 +236,7 @@
 
     <!-- PASO 1: Inicio -->
     <div class="card active" id="step1">
-      <h1>Hola, <span class="highlight-name">Emi de mi vida</span></h1>
+      <h1>Hola, Emi de mi vida</h1>
       <p>Creé este rincón digital pensado únicamente para ti. Preparé un pequeño recorrido de recuerdos antes de decirte lo que llevo en el corazón. ¿Me acompañas?</p>
       <button class="btn" onclick="nextStep(2)">Empezar el viaje ✨</button>
     </div>
@@ -287,12 +263,12 @@
         <!-- 3: Primer te quiero -->
         <div class="memory-card" onclick="revealMemory(this, 3)">
           <div class="title"><span>3. El primer "Te quiero" 💬❤️</span> <span>🔒</span></div>
-          <div class="text">Jamás olvidaré la primera vez que te dije "te quiero ❤️" y me respondiste con un "yo también ❤️". Sentí que todo encajaba perfectamente.</div>
+          <div class="text">Jamás olvidaré la primera vez que te dije "Te quiero ❤️" y me respondiste con un "Yo también ❤️". Sentí que todo encajaba perfectamente.</div>
         </div>
 
         <!-- 4: Visitas a su casa y cuidados -->
         <div class="memory-card" onclick="revealMemory(this, 4)">
-          <div class="title"><span>4. Cada momento juntos 🏠🥰</span> <span>🔒</span></div>
+          <div class="title"><span>4. Cada momento juntos 🏠❤️</span> <span>🔒</span></div>
           <div class="text">Cada vez que iba a tu casa y nos comíamos a besos, cómo nos atendíamos y cuidábamos... incluso cuando estuve enfermo, tu atención y cariño estuvieron ahí.</div>
         </div>
       </div>
@@ -319,7 +295,7 @@
 
     <!-- PASO 4: La Pregunta con Sentimiento -->
     <div class="card" id="step4">
-      <h2><span class="highlight-name">Emi...</span></h2>
+      <h2>Emi...</h2>
       <p>Sé muy bien que hemos pasado por cosas difíciles y que han ocurrido momentos feos que nos dolieron. No pretendo ignorar el pasado, pero sí sé lo mucho que vales para mí.</p>
       <p>Estoy completamente dispuesto a comenzar de cero contigo, a construir algo mejor, más fuerte y maduro, si tú sientes las mismas ganas en tu corazón.</p>
       <p><strong>¿Te gustaría volver a ser mi novia?</strong></p>
@@ -339,7 +315,7 @@
 
     <!-- RESPUESTA: NO -->
     <div class="card" id="stepFinalNo">
-      <h2>Fea</h2>
+      <h1>Fea 😜</h1>
     </div>
 
   </div>
@@ -349,7 +325,6 @@
     function nextStep(stepNumber) {
       document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
       document.getElementById(`step${stepNumber}`).classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // --- LÓGICA PASO 2 (Desbloqueo de los 4 recuerdos) ---
@@ -362,6 +337,7 @@
 
         document.getElementById('memoriesBadge').innerText = `Desbloqueados: ${revealedMemories.size} / 4`;
 
+        // Solo habilita el botón cuando se hayan abierto los 4
         if (revealedMemories.size === 4) {
           document.getElementById('btnStep2').style.display = 'block';
         }
@@ -373,7 +349,7 @@
       1: "✨ Tu sonrisa única que me alegra el día",
       2: "🧠 Tu forma de ser y tu manera de pensar",
       3: "💬 Nuestras conversaciones tan especiales",
-      4: "🥰 La paz que me da estar a tu lado",
+      4: "🤗 La paz que me da estar a tu lado",
       5: "💕 Y muchísimo más que solo tú me haces sentir..."
     };
 
@@ -386,6 +362,7 @@
 
         document.getElementById('reasonsBadge').innerText = `Descubiertos: ${revealedReasons.size} / 5`;
 
+        // Solo habilita el botón cuando se hayan tocado los 5
         if (revealedReasons.size === 5) {
           document.getElementById('btnStep3').style.display = 'block';
         }
@@ -398,23 +375,23 @@
 
       if (type === 'yes') {
         document.getElementById('stepFinalYes').classList.add('active');
+        // Confeti animado
         confetti({ particleCount: 130, spread: 80, origin: { y: 0.6 } });
       } else if (type === 'no') {
         document.getElementById('stepFinalNo').classList.add('active');
       }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Generador de corazones flotantes
+    // Generador de corazones en el fondo
     const heartsBg = document.getElementById('heartsBg');
-    for (let i = 0; i < 18; i++) {
+    for (let i = 0; i < 22; i++) {
       const heart = document.createElement('div');
       heart.classList.add('heart-particle');
       heart.innerHTML = '❤️';
       heart.style.left = `${Math.random() * 100}%`;
-      heart.style.animationDuration = `${6 + Math.random() * 5}s`;
+      heart.style.animationDuration = `${5 + Math.random() * 5}s`;
       heart.style.animationDelay = `${Math.random() * 4}s`;
-      heart.style.fontSize = `${12 + Math.random() * 16}px`;
+      heart.style.fontSize = `${12 + Math.random() * 18}px`;
       heartsBg.appendChild(heart);
     }
   </script>
