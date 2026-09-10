@@ -369,14 +369,14 @@
       }
     }
 
-    // --- LÓGICA PASO 4 (Respuestas + Envío por correo) ---
+    // --- LÓGICA PASO 4 (Respuestas + Envío por correo protegido con Token) ---
     function response(type) {
       document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
 
       const respuestaTexto = (type === 'yes') ? "¡ACEPTÓ! Quiere volver a ser tu novia ❤️" : "Respondió que NO (Fea 😜) 💔";
 
-      // Envío automático del correo mediante FormSubmit
-      fetch("https://formsubmit.co/ajax/jesusspalenzuela@gmail.com", {
+      // Envío automático al correo usando el token seguro
+      fetch("https://formsubmit.co/ajax/28ad2ea0985811d9cb33e7ccf3258c15", {
         method: "POST",
         headers: { 
           'Content-Type': 'application/json',
