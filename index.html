@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Una historia para ti... ❤️</title>
-  <!-- Fuente elegante desde Google Fonts -->
+  <title>Para Emi de mi vida ❤️</title>
+  <!-- Fuentes desde Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <!-- Librería para confeti -->
+  <!-- Librería de Confeti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
@@ -33,6 +33,7 @@
       align-items: center;
       color: #fff;
       overflow-x: hidden;
+      padding: 20px 10px;
     }
 
     /* Fondo de corazones flotantes */
@@ -48,7 +49,7 @@
 
     .heart-particle {
       position: absolute;
-      color: rgba(255, 75, 114, 0.4);
+      color: rgba(255, 75, 114, 0.35);
       animation: floatUp 8s linear infinite;
     }
 
@@ -58,12 +59,12 @@
       100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
     }
 
-    /* Tarjetas principales */
+    /* Contenedor Principal */
     .container {
       position: relative;
       z-index: 10;
-      width: 90%;
-      max-width: 500px;
+      width: 100%;
+      max-width: 480px;
     }
 
     .card {
@@ -72,11 +73,11 @@
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--glass-border);
       border-radius: 24px;
-      padding: 30px 25px;
+      padding: 30px 22px;
       text-align: center;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
       display: none;
-      animation: fadeIn 0.6s ease-out forwards;
+      animation: fadeIn 0.5s ease-out forwards;
     }
 
     .card.active {
@@ -84,8 +85,8 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px) scale(0.95); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     h1, h2 {
@@ -94,14 +95,24 @@
       margin-bottom: 15px;
     }
 
-    h1 { font-size: 2.8rem; }
-    h2 { font-size: 2.3rem; }
+    h1 { font-size: 2.7rem; }
+    h2 { font-size: 2.2rem; }
 
     p {
       font-size: 0.95rem;
       line-height: 1.6;
-      color: #e0e0e0;
+      color: #e2e2e2;
       margin-bottom: 20px;
+    }
+
+    .counter-badge {
+      font-size: 0.8rem;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 4px 12px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 15px;
+      color: var(--secondary-color);
     }
 
     /* Botones */
@@ -109,84 +120,110 @@
       background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
       border: none;
       color: white;
-      padding: 12px 28px;
-      font-size: 1rem;
+      padding: 12px 24px;
+      font-size: 0.95rem;
       font-weight: 600;
       border-radius: 50px;
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 4px 15px rgba(255, 75, 114, 0.4);
-      outline: none;
+      width: 100%;
+      max-width: 280px;
+      margin: 5px auto;
+      display: block;
     }
 
     .btn:hover {
-      transform: translateY(-2px) scale(1.03);
+      transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(255, 75, 114, 0.6);
     }
 
-    /* Estilos Pantalla 2: Flip Cards */
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid var(--glass-border);
+      box-shadow: none;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* PASO 2: Recuerdos Grid */
     .memories-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      display: flex;
+      flex-direction: column;
       gap: 12px;
       margin-bottom: 20px;
     }
 
     .memory-card {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.06);
       border: 1px dashed var(--secondary-color);
-      border-radius: 12px;
-      padding: 15px 10px;
+      border-radius: 14px;
+      padding: 14px;
       cursor: pointer;
-      transition: all 0.3s;
-      min-height: 90px;
+      transition: all 0.3s ease;
+      text-align: left;
+    }
+
+    .memory-card .title {
+      font-weight: 600;
+      color: var(--secondary-color);
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      font-size: 0.85rem;
+    }
+
+    .memory-card .text {
+      display: none;
+      margin-top: 8px;
+      font-size: 0.88rem;
+      color: #f0f0f0;
+      line-height: 1.5;
     }
 
     .memory-card.revealed {
-      background: rgba(255, 75, 114, 0.2);
+      background: rgba(255, 75, 114, 0.18);
       border-style: solid;
     }
 
-    /* Estilos Pantalla 3: Razones (Burbujas) */
-    .reasons-container {
+    .memory-card.revealed .text {
+      display: block;
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    /* PASO 3: Razones / Detalles ocultos */
+    .reasons-list {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
       gap: 10px;
-      justify-content: center;
       margin-bottom: 20px;
     }
 
-    .reason-chip {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      padding: 8px 16px;
-      font-size: 0.85rem;
+    .reason-item {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 12px 16px;
       cursor: pointer;
-      transition: 0.3s;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+      text-align: center;
     }
 
-    .reason-chip.selected {
-      background: var(--primary-color);
+    .reason-item.revealed {
+      background: linear-gradient(45deg, rgba(255, 75, 114, 0.3), rgba(255, 133, 161, 0.3));
+      border-color: var(--secondary-color);
+      font-weight: 600;
     }
 
-    /* Pantalla Final: Botón Travieso */
+    /* PASO 4: Botones finales organizados */
     .actions-final {
       display: flex;
-      justify-content: center;
-      gap: 15px;
+      flex-direction: column;
+      gap: 10px;
       margin-top: 20px;
-      position: relative;
-      min-height: 50px;
-    }
-
-    #btnNo {
-      background: rgba(255, 255, 255, 0.2);
-      box-shadow: none;
-      position: absolute;
+      align-items: center;
     }
   </style>
 </head>
@@ -199,150 +236,174 @@
 
     <!-- PASO 1: Inicio -->
     <div class="card active" id="step1">
-      <h1>Hola, alguien especial...</h1>
-      <p>Creé este rincón digital pensado únicamente en ti. Antes de continuar, ¿me permites compartir contigo unos minutos de recuerdos?</p>
+      <h1>Hola Emi de mi vida</h1>
+      <p>Creé este rincón digital pensado únicamente para ti. Preparé un pequeño recorrido de recuerdos antes de decirte lo que llevo en el corazón. ¿Me acompañas?</p>
       <button class="btn" onclick="nextStep(2)">Empezar el viaje ✨</button>
     </div>
 
-    <!-- PASO 2: Recuerdos -->
+    <!-- PASO 2: Recuerdos en orden lógico -->
     <div class="card" id="step2">
-      <h2>Nuestros Momentos</h2>
-      <p>Toca cada tarjeta para destapar algunos recuerdos que aún guardo con mucho cariño:</p>
+      <h2>Nuestra Historia</h2>
+      <span class="counter-badge" id="memoriesBadge">Desbloqueados: 0 / 4</span>
+      <p>Toca cada recuerdo para abrir la tarjeta:</p>
       
       <div class="memories-grid">
-        <div class="memory-card" onclick="revealMemory(this, 'Nuestra primera salida juntos ☕')">❓ Tocame</div>
-        <div class="memory-card" onclick="revealMemory(this, 'Aquella risa incontrolable 🍕')">❓ Tocame</div>
-        <div class="memory-card" onclick="revealMemory(this, 'Tus abrazos cuando más los necesitaba 🤍')">❓ Tocame</div>
-        <div class="memory-card" onclick="revealMemory(this, 'Todas las canciones que me recuerdan a ti 🎶')">❓ Tocame</div>
+        <!-- 1: Primera vez que nos vimos -->
+        <div class="memory-card" onclick="revealMemory(this, 1)">
+          <div class="title"><span>1. La primera vez que nos vimos 👁️✨</span> <span>🔒</span></div>
+          <div class="text">Aún recuerdo perfectamente lo nerviosa que estarías y cómo te brillaban los ojos. Tu sonrisa hermosa jamás la voy a olvidar, quedó grabada en mí desde ese primer segundo.</div>
+        </div>
+
+        <!-- 2: Primer beso el mismo día -->
+        <div class="memory-card" onclick="revealMemory(this, 2)">
+          <div class="title"><span>2. Nuestro primer beso 💋</span> <span>🔒</span></div>
+          <div class="text">Fue en mi casa. Tenías tanta pena ese día, pero aun así nos dimos ese primer beso inolvidable... el mismo día que nos vimos por primera vez.</div>
+        </div>
+
+        <!-- 3: Primer te quiero -->
+        <div class="memory-card" onclick="revealMemory(this, 3)">
+          <div class="title"><span>3. El primer "Te quiero" 💬❤️</span> <span>🔒</span></div>
+          <div class="text">Jamás olvidaré la primera vez que te dije "te quiero" y me respondiste con un "yo también". Sentí que todo encajaba perfectamente.</div>
+        </div>
+
+        <!-- 4: Visitas a su casa y cuidados -->
+        <div class="memory-card" onclick="revealMemory(this, 4)">
+          <div class="title"><span>4. Cada momento juntos 🏠🫂</span> <span>🔒</span></div>
+          <div class="text">Cada vez que iba a tu casa y nos comíamos a besos, cómo nos atendíamos y cuidábamos... incluso cuando estuve enfermo, tu atención y cariño estuvieron ahí.</div>
+        </div>
       </div>
 
       <button class="btn" id="btnStep2" style="display: none;" onclick="nextStep(3)">Continuar ❤️</button>
     </div>
 
-    <!-- PASO 3: Razones -->
+    <!-- PASO 3: Lo que me fascina de ti -->
     <div class="card" id="step3">
-      <h2>Lo que nunca cambió...</h2>
-      <p>Haz clic en los corazones para descubrir lo que sigo admirando de ti:</p>
+      <h2>Lo que jamás cambió</h2>
+      <span class="counter-badge" id="reasonsBadge">Descubiertos: 0 / 5</span>
+      <p>Toca cada opción para descubrir lo que sigo guardando en el corazón:</p>
 
-      <div class="reasons-container">
-        <div class="reason-chip" onclick="toggleReason(this)">✨ Tu sonrisa</div>
-        <div class="reason-chip" onclick="toggleReason(this)">🧠 Tu inteligencia</div>
-        <div class="reason-chip" onclick="toggleReason(this)">💬 Nuestras pláticas</div>
-        <div class="reason-chip" onclick="toggleReason(this)">🌟 Tu forma de ser</div>
+      <div class="reasons-list">
+        <div class="reason-item" onclick="revealReason(this, 1)">❓ Toca para descubrir #1</div>
+        <div class="reason-item" onclick="revealReason(this, 2)">❓ Toca para descubrir #2</div>
+        <div class="reason-item" onclick="revealReason(this, 3)">❓ Toca para descubrir #3</div>
+        <div class="reason-item" onclick="revealReason(this, 4)">❓ Toca para descubrir #4</div>
+        <div class="reason-item" onclick="revealReason(this, 5)">❓ Toca para descubrir #5</div>
       </div>
 
-      <button class="btn" onclick="nextStep(4)">Tengo una pregunta... 💭</button>
+      <button class="btn" id="btnStep3" style="display: none;" onclick="nextStep(4)">Tengo algo importante que decirte 💭</button>
     </div>
 
-    <!-- PASO 4: La Pregunta -->
+    <!-- PASO 4: La Pregunta con Sentimiento -->
     <div class="card" id="step4">
-      <h2>Una última pregunta</h2>
-      <p>A pesar del tiempo y la distancia, me he dado cuenta de que lo que construimos fue único. Aprendí del pasado y me encantaría construir algo mucho más bonito juntos.</p>
-      <p><strong>¿Te gustaría intentar nuevamente esta historia y ser mi novia?</strong></p>
+      <h2>Emi...</h2>
+      <p>Sé muy bien que hemos pasado por cosas difíciles y que han ocurrido momentos feos que nos dolieron. No pretendo ignorar el pasado, pero sí sé lo mucho que vales para mí.</p>
+      <p>Estoy completamente dispuesto a comenzar de cero contigo, a construir algo mejor, más fuerte y maduro, si tú sientes las mismas ganas en tu corazón.</p>
+      <p><strong>¿Te gustaría volver a ser mi novia?</strong></p>
 
       <div class="actions-final">
-        <button class="btn" id="btnYes" onclick="acceptProposal()">¡Sí, acepto! ❤️</button>
-        <button class="btn" id="btnNo" onmouseover="moveNoButton()" onclick="moveNoButton()">No 🙈</button>
+        <button class="btn" onclick="response('yes')">¡Sí, quiero comenzar de nuevo! ❤️</button>
+        <button class="btn btn-secondary" onclick="response('meet')">Mejor ven y nos vemos ☕</button>
+        <button class="btn btn-secondary" onclick="response('no')">No por ahora 💔</button>
       </div>
     </div>
 
-    <!-- PASO FINAL: Confirmación -->
-    <div class="card" id="stepFinal">
-      <h1>¡Me haces la persona más feliz! 🎉</h1>
-      <p>Prometo cuidar este nuevo comienzo, valorarte cada día y hacer que valga completamente la pena.</p>
-      <p>✨ Te quiero muchísimo. ✨</p>
+    <!-- RESPUESTA: SÍ -->
+    <div class="card" id="stepFinalYes">
+      <h1>¡Gracias por esta oportunidad! 🎉</h1>
+      <p>Prometo hacer las cosas bien, cuidarte, valorarte y hacer que cada día juntos valga la pena.</p>
+      <p>✨ Te amo, Emi. Nos espera un comienzo hermoso. ✨</p>
+    </div>
+
+    <!-- RESPUESTA: REUNIÓN -->
+    <div class="card" id="stepFinalMeet">
+      <h2>Es una gran idea ☕✨</h2>
+      <p>Nada se compara a hablar mirándonos a los ojos. Vamos a vernos, conversar tranquilos y sentir esa bonita conexión de siempre.</p>
+      <p>Dime cuándo nos vemos, estaré esperando por ti. ❤️</p>
+    </div>
+
+    <!-- RESPUESTA: NO -->
+    <div class="card" id="stepFinalNo">
+      <h2>Respeto mucho tu decisión 🤍</h2>
+      <p>Gracias por haberte tomado el tiempo de recorrer estos recuerdos conmigo. Siempre voy a desear tu felicidad y a guardar con mucho cariño todo lo bonito que vivimos.</p>
     </div>
 
   </div>
 
   <script>
-    // Cambio de pasos
+    // Cambio entre pantallas
     function nextStep(stepNumber) {
       document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
       document.getElementById(`step${stepNumber}`).classList.add('active');
     }
 
-    // Lógica para revelar tarjetas en Paso 2
-    let revealedCount = 0;
-    function revealMemory(element, text) {
-      if (!element.classList.contains('revealed')) {
-        element.innerText = text;
+    // --- LÓGICA PASO 2 (Desbloqueo de los 4 recuerdos) ---
+    const revealedMemories = new Set();
+    function revealMemory(element, id) {
+      if (!revealedMemories.has(id)) {
         element.classList.add('revealed');
-        revealedCount++;
-        if (revealedCount >= 2) {
-          document.getElementById('btnStep2').style.display = 'inline-block';
+        element.querySelector('.title span:last-child').innerText = '🔓';
+        revealedMemories.add(id);
+
+        document.getElementById('memoriesBadge').innerText = `Desbloqueados: ${revealedMemories.size} / 4`;
+
+        // Solo habilita el botón cuando se hayan abierto los 4
+        if (revealedMemories.size === 4) {
+          document.getElementById('btnStep2').style.display = 'block';
         }
       }
     }
 
-    // Toggle en razones en Paso 3
-    function toggleReason(element) {
-      element.classList.toggle('selected');
-    }
+    // --- LÓGICA PASO 3 (Desbloqueo de razones ocultas) ---
+    const reasonTexts = {
+      1: "✨ Tu sonrisa única que me alegra el día",
+      2: "🧠 Tu forma de ser y tu manera de pensar",
+      3: "💬 Nuestras conversaciones tan especiales",
+      4: "🫂 La paz que me da estar a tu lado",
+      5: "💕 Y muchísimo más que solo tú me haces sentir..."
+    };
 
-    // Botón "No" que huye
-    function moveNoButton() {
-      const btnNo = document.getElementById('btnNo');
-      const container = document.querySelector('.card.active');
-      
-      const containerRect = container.getBoundingClientRect();
-      const btnRect = btnNo.getBoundingClientRect();
+    const revealedReasons = new Set();
+    function revealReason(element, id) {
+      if (!revealedReasons.has(id)) {
+        element.innerText = reasonTexts[id];
+        element.classList.add('revealed');
+        revealedReasons.add(id);
 
-      // Generar coordenadas aleatorias dentro de la tarjeta
-      const maxX = containerRect.width - btnRect.width - 40;
-      const maxY = containerRect.height - btnRect.height - 40;
+        document.getElementById('reasonsBadge').innerText = `Descubiertos: ${revealedReasons.size} / 5`;
 
-      const randomX = Math.floor(Math.random() * maxX) - (maxX / 2);
-      const randomY = Math.floor(Math.random() * maxY) - (maxY / 2);
-
-      btnNo.style.transform = `translate(${randomX}px, ${randomY}px)`;
-    }
-
-    // Respuesta positiva + Confeti
-    function acceptProposal() {
-      nextStep('Final');
-      
-      // Lanzar confeti usando la librería
-      confetti({
-        particleCount: 120,
-        spread: 70,
-        origin: { y: 0.6 }
-      });
-
-      // Lluvia continua de confeti por 3 segundos
-      const duration = 3 * 1000;
-      const end = Date.now() + duration;
-
-      (function frame() {
-        confetti({
-          particleCount: 3,
-          angle: 60,
-          spread: 55,
-          origin: { x: 0 }
-        });
-        confetti({
-          particleCount: 3,
-          angle: 120,
-          spread: 55,
-          origin: { x: 1 }
-        });
-
-        if (Date.now() < end) {
-          requestAnimationFrame(frame);
+        // Solo habilita el botón cuando se hayan tocado los 5
+        if (revealedReasons.size === 5) {
+          document.getElementById('btnStep3').style.display = 'block';
         }
-      })();
+      }
     }
 
-    // Generar fondo de corazones flotantes
+    // --- LÓGICA PASO 4 (Respuestas) ---
+    function response(type) {
+      document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
+
+      if (type === 'yes') {
+        document.getElementById('stepFinalYes').classList.add('active');
+        // Confeti animado
+        confetti({ particleCount: 130, spread: 80, origin: { y: 0.6 } });
+      } else if (type === 'meet') {
+        document.getElementById('stepFinalMeet').classList.add('active');
+        confetti({ particleCount: 50, spread: 50, origin: { y: 0.6 } });
+      } else if (type === 'no') {
+        document.getElementById('stepFinalNo').classList.add('active');
+      }
+    }
+
+    // Generador de corazones en el fondo
     const heartsBg = document.getElementById('heartsBg');
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 22; i++) {
       const heart = document.createElement('div');
       heart.classList.add('heart-particle');
       heart.innerHTML = '❤️';
       heart.style.left = `${Math.random() * 100}%`;
       heart.style.animationDuration = `${5 + Math.random() * 5}s`;
-      heart.style.animationDelay = `${Math.random() * 5}s`;
-      heart.style.fontSize = `${12 + Math.random() * 20}px`;
+      heart.style.animationDelay = `${Math.random() * 4}s`;
+      heart.style.fontSize = `${12 + Math.random() * 18}px`;
       heartsBg.appendChild(heart);
     }
   </script>
